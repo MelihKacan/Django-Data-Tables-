@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../static/css/button.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+              var txt = $("#txtArea").val();
+              $.post("{% url 'server_side_search_api'%}", {search:txt}).done(function(data, status){
+                var _text = '';
+                alert("Success: " + status + "\nData" + data);
+                data.forEach(function(person){
+                    _text = "<h1>" + person.name + "</h1>"
+                });
+                $("#blogs").html(_text);
+              });
+            });
+          });
+    </script>
+
+</head>
+<body>
+    <textarea id="txtArea" cols="30" rows="10"></textarea>
+    <a href="/" class="button"> BACK </a>
+    <button id="button" class="button"> RELOAD </button>
+
+    
+    <div id="blogs"></div>
+</body>
+</html>

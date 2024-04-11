@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../static/css/button.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+              $.get("{% url 'data_tables_api'%}", function(data, status){
+                var _text = '';
+                alert("Data: " + data + "\nStatus: " + status);
+                data.forEach(function(person) {
+                    _text += '<table border="1px">'
+                    _text += '<tr>'
+                    _text += '<th>' + "ID" + '</th>' + '<th>' + "Name" + '</th>' + '<th>' + "Job" + '</th>'
+                    _text += '</tr>'
+                    _text += '<tr>'
+                    _text += '<td>' + person.id + '</td>'
+                    _text += '<td> '+ person.name + '</td>'
+                    _text += '<td>' + person.job + '</td>'
+                    _text += '</tr>';
+                    _text += '</table>'
+                });
+                $("#blogs").html(_text);
+              });
+            });
+          });
+    </script>
+
+</head>
+<body>
+    <div>
+        <a href="/" class="button">BACK</a>
+        <button id="button" class="button">RELOAD</button>
+        <div id="blogs"></div>
+    </div>
+</body>
+</html>
